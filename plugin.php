@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name:        Gutenberg Templates
+Plugin Name:        Gutenberg Backgrounds for Blocks
 Plugin URI:         http://genero.fi
-Description:        Add page template support to Gutenberg
+Description:        Add a background option to every Gutenberg block
 Version:            1.0.0
 Author:             Genero
 Author URI:         http://genero.fi/
 License:            MIT License
 License URI:        http://opensource.org/licenses/MIT
 */
-namespace GeneroWP\Gutenberg\Templates;
+namespace GeneroWP\Gutenberg\Backgrounds;
 
 use Puc_v4_Factory;
 use WP_REST_Server;
@@ -33,15 +33,13 @@ class Plugin
     use Assets;
 
     public $version = '1.0.0';
-    public $plugin_name = 'wp-gutenberg-templates';
+    public $plugin_name = 'wp-gutenberg-backgrounds';
     public $plugin_path;
     public $plugin_url;
-    public $github_url = 'https://github.com/generoi/wp-gutenberg-templates';
+    public $github_url = 'https://github.com/generoi/wp-gutenberg-backgrounds';
 
     public function __construct()
     {
-        require_once __DIR__ . '/api.php';
-
         $this->plugin_path = plugin_dir_path(__FILE__);
         $this->plugin_url = plugin_dir_url(__FILE__);
 
@@ -52,49 +50,53 @@ class Plugin
 
     public function init()
     {
-        add_filter('theme_templates', [$this, 'templates'], 100, 4);
-        add_action('rest_api_init', [$this, 'restApiEndpoints']);
+        add_action('enqueue_block_assets', [$this, 'block_assets']);
         add_action('enqueue_block_editor_assets', [$this, 'block_editor_assets']);
+        add_action('init', [$this, 'alter_registered_blocks'], 100);
     }
 
-    public function templates($templates, $theme, $post, $post_type)
+    public function alter_registered_blocks()
     {
-        foreach (\get_gutenberg_templates($post_type) as $template => $args) {
-            $name = $args['name'];
-            $file = $args['template_file'];
-            $templates[$file] = $name;
+        foreach (\WP_Block_Type_Registry::get_instance()->get_all_registered() as $blockType) {
+            // @todo no native support for support.
+            if (!isset($blockType->supports['customBackgroundColor']) || $blockType->supports['customBackgroundColor']) {
+                $blockType->attributes['customBackgroundColor'] = [
+                    'type' => 'string',
+                ];
+                $blockType->attributes['hasCustomBackgroundExpand'] = [
+                    'type' => 'bool',
+                    'default' => false,
+                ];
+                if ($blockType->is_dynamic()) {
+                    $blockType->original_render_callback = $blockType->render_callback;
+                    $blockType->render_callback = function ($attributes) use ($blockType) {
+                        d($attributes);
+                        if (!empty($attributes['customBackgroundColor'])) {
+                            $attributes['classes'][] = 'has-background';
+                            $attributes['classes'][] = 'has-' . $attributes['customBackgroundColor'] . '-background-color';
+                        }
+                        if (!empty($attributes['hasCustomBackgroundExpand'])) {
+                            $attributes['classes'][] = 'has-background-expanded';
+                        }
+                        return (string) call_user_func($blockType->original_render_callback, $attributes);
+                    };
+                }
+            }
         }
-        return $templates;
     }
 
-    public function restApiEndpoints()
+    public function render_callback($attributes)
     {
-        register_rest_route('gutenberg-templates/v1', '/template', [
-            'methods' => WP_REST_Server::READABLE,
-            'callback' => [$this, 'getTemplate'],
-            'args' => [
-                'template' => ['required' => true, 'validate_callback' => [$this, 'validateTemplateFile']],
-            ],
-        ]);
     }
 
-    public function validateTemplateFile(string $template)
+    public function block_assets()
     {
-        return !!preg_match('/^[a-zA-Z0-9-_\/]+\.php$/', $template);
-    }
-
-    public function getTemplate(WP_REST_Request $request)
-    {
-        $template = \get_gutenberg_template_by_file($request['template']);
-        if (!$template) {
-            return new \WP_Error('no_template', 'Invalid template', ['status' => 404]);
-        }
-        return $template;
+        $this->enqueueStyle("{$this->plugin_name}/block/css", 'dist/style.css', ['wp-blocks']);
     }
 
     public function block_editor_assets()
     {
-        $this->enqueueScript("{$this->plugin_name}/js", 'dist/main.js', ['wp-data', 'wp-blocks', 'wp-components', 'wp-i18n']);
+        $this->enqueueScript("{$this->plugin_name}/js", 'dist/index.js', ['lodash', 'wp-hooks', 'wp-blocks', 'wp-components', 'wp-i18n', 'wp-element']);
     }
 }
 

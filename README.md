@@ -1,6 +1,6 @@
-# wp-gutenberg-templates
+# wp-gutenberg-backgrounds
 
-> Add page template support to Gutenberg
+> Add a background option to every Gutenberg block
 
 
 ## Features

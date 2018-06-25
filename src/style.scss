@@ -1,0 +1,40 @@
+[data-background-expanded="true"],
+.has-background-expanded {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+
+  &::before {
+    content: '';
+    background-color: inherit;
+    display: block;
+    position: absolute;
+    left: -50vw;
+    right: -50vw;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+  }
+}
+
+// Use the background color when dim is an option on the parent block.
+.has-background.has-background-dim {
+  &::before {
+    background-color: inherit !important;
+    opacity: 0.5;
+  }
+
+  @for $i from 1 through 10 {
+    &-#{ ($i * 10) }::before {
+      opacity: $i * 0.1;
+    }
+  }
+}
+
+[data-background-expanded="true"] {
+  z-index: 20;
+
+  .editor-block-list__block-edit {
+    z-index: 6; // inserter is 5.
+  }
+}

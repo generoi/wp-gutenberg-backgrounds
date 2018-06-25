@@ -1,9 +1,9 @@
 {
-  "name": "generoi/wp-gutenberg-templates",
+  "name": "generoi/wp-gutenberg-backgrounds",
   "type": "wordpress-plugin",
   "license": "MIT",
-  "description": "Add page template support to Gutenberg",
-  "homepage": "https://github.com/generoi/wp-gutenberg-templates",
+  "description": "Add a background option to every Gutenberg block",
+  "homepage": "https://github.com/generoi/wp-gutenberg-backgrounds",
   "authors": [
     {
       "name": "Oskar Schöldström",
@@ -14,7 +14,7 @@
     "gutenberg"
   ],
   "support": {
-    "issues": "https://github.com/generoi/wp-gutenberg-templates/issues"
+    "issues": "https://github.com/generoi/wp-gutenberg-backgrounds/issues"
   },
   "repositories": [
     {
@@ -39,7 +39,7 @@
   },
   "autoload": {
     "psr-4": {
-      "GeneroWP\\Gutenberg\\Templates\\": "src/"
+      "GeneroWP\\Gutenberg\\Backgrounds\\": "src/"
     }
   },
   "scripts": {
