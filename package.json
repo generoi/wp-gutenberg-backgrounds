@@ -2,7 +2,7 @@
   "name": "wp-gutenberg-backgrounds",
   "version": "1.0.0",
   "description": "Add a background option to every Gutenberg block",
-  "main": "assets/scripts/plugin.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
@@ -37,14 +37,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/generoi/wp-plugin-boilerplate.git"
+    "url": "git+https://github.com/generoi/wp-plugin-backgrounds.git"
   },
   "author": "Oskar Schöldström",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/generoi/wp-plugin-boilerplate/issues"
+    "url": "https://github.com/generoi/wp-plugin-backgrounds/issues"
   },
-  "homepage": "https://github.com/generoi/wp-plugin-boilerplate#readme",
+  "homepage": "https://github.com/generoi/wp-plugin-backgrounds#readme",
   "engines": {
     "node": ">= 6.9.4"
   },

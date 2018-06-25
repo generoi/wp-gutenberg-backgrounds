@@ -2,27 +2,6 @@
 
 > Add a background option to every Gutenberg block
 
-
-## Features
-
-Allow switching the Gutenberg block template based on the page template attribute.
-
-## API
-
-```php
-add_action('init', function () {
-    register_gutenberg_template('foobar', [
-        'post_type' => 'page',
-        'name' => __('Foobar'),
-        'template' => [
-            ['genero/banner'],
-            ['core/paragraph'],
-        ],
-        'template_lock' => 'all',
-    ]);
-});
-```
-
 ## Development
 
 Install dependencies
