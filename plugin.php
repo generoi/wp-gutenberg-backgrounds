@@ -71,7 +71,6 @@ class Plugin
                 if ($blockType->is_dynamic()) {
                     $blockType->original_render_callback = $blockType->render_callback;
                     $blockType->render_callback = function ($attributes) use ($blockType) {
-                        d($attributes);
                         if (!empty($attributes['customBackgroundColor'])) {
                             $attributes['classes'][] = 'has-background';
                             $attributes['classes'][] = 'has-' . $attributes['customBackgroundColor'] . '-background-color';
@@ -84,10 +83,6 @@ class Plugin
                 }
             }
         }
-    }
-
-    public function render_callback($attributes)
-    {
     }
 
     public function block_assets()

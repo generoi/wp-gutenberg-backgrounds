@@ -16,7 +16,6 @@ import { getColorClass } from '@wordpress/editor';
  * Internal Dependencies
  */
 import Inspector from './components/inspector';
-import './style.scss';
 
 /**
  * Return if block supports custom background colors.
