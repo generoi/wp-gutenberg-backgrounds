@@ -9,10 +9,15 @@
     "hot": "NODE_ENV=development webpack-dev-server --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "production": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles",
-    "lint:scripts": "eslint src",
+    "lint:scripts": "eslint *.js src",
     "lint:styles": "stylelint src/**/*.{css,scss}",
     "test": "npm run -s lint && composer test",
-    "precommit": "npm run test"
+    "precommit": "npm run test",
+    "lang": "npm run lang:pot && npm run lang:mo",
+    "lang:pot": "npm run lang:js-php && npm run lang:pot:php",
+    "lang:pot:php": "wp-pot --src '*.php' --src 'src/*.php' --src 'languages/*.php' --team 'Genero <developers@genero.fi>' --package 'wp-gutenberg-backgrounds' >| languages/wp-gutenberg-backgrounds.pot",
+    "lang:js-php": "pot-to-php languages/javascript.pot languages/javascript.php wp-gutenberg-backgrounds",
+    "lang:mo": "for file in `find . -name \"*.po\"` ; do msgfmt -o ${file/.po/.mo} $file; done"
   },
   "browserslist": [
     "last 2 versions",
@@ -44,6 +49,8 @@
     "node": ">= 6.9.4"
   },
   "devDependencies": {
+    "@wordpress/babel-plugin-makepot": "^1.0.1",
+    "@wordpress/i18n": "^1.1.1",
     "babel-preset-react": "^6.24.1",
     "eslint": "^4.19.0",
     "eslint-plugin-genero": "git+https://github.com/generoi/eslint-plugin-genero.git",
@@ -52,7 +59,8 @@
     "husky": "^0.14.3",
     "laravel-mix": "^2.1.11",
     "stylelint": "^9.3.0",
-    "stylelint-config-genero": "git+https://github.com/generoi/stylelint-config-genero.git"
+    "stylelint-config-genero": "git+https://github.com/generoi/stylelint-config-genero.git",
+    "wp-pot-cli": "^1.2.1"
   },
   "dependencies": {
     "classnames": "^2.2.6"

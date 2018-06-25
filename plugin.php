@@ -52,6 +52,7 @@ class Plugin
     {
         add_action('enqueue_block_assets', [$this, 'block_assets']);
         add_action('enqueue_block_editor_assets', [$this, 'block_editor_assets']);
+        add_action('init', [$this, 'load_textdomain']);
         add_action('init', [$this, 'alter_registered_blocks'], 100);
     }
 
@@ -97,6 +98,15 @@ class Plugin
     public function block_editor_assets()
     {
         $this->enqueueScript("{$this->plugin_name}/js", 'dist/index.js', ['lodash', 'wp-hooks', 'wp-blocks', 'wp-components', 'wp-i18n', 'wp-element']);
+        $this->localizeScript("{$this->plugin_name}/js", gutenberg_get_jed_locale_data($this->plugin_name));
+    }
+
+    public function load_textdomain()
+    {
+        // WP Performance Pack
+        include __DIR__ . '/languages/javascript.php';
+
+        load_plugin_textdomain($this->plugin_name, false, dirname(plugin_basename(__FILE__)) . '/languages');
     }
 }
 

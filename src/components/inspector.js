@@ -18,14 +18,14 @@ const Inspector = ({ attributes, setAttributes, customBackgroundColor, setCustom
     <InspectorAdvancedControls>
       <PanelColor
         colorValue={ customBackgroundColor.value }
-        title={ __('Background Color') }
+        title={ __('Background Color', 'wp-gutenberg-backgrounds') }
         onChange={ setCustomBackgroundColor }
       />
 
       { !!customBackgroundColor.value && (
         <ToggleControl
           key='togglecontrol'
-          label={ __('Expand the full viewport width') }
+          label={ __('Expand the full viewport width', 'wp-gutenberg-backgrounds') }
           checked={ !!hasCustomBackgroundExpand }
           onChange={ () => setAttributes({ hasCustomBackgroundExpand: !hasCustomBackgroundExpand }) }
         />

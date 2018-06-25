@@ -3,6 +3,14 @@ const mix = require('laravel-mix');
 mix.sass('src/style.scss', 'dist/');
 mix.react('src/index.js', 'dist/');
 
+mix.babelConfig({
+  'plugins': [
+    [
+      '@wordpress/babel-plugin-makepot', { 'output': 'languages/javascript.pot' }
+    ]
+  ],
+});
+
 mix.webpackConfig({
   externals: {
     'lodash': 'lodash',
