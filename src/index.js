@@ -24,7 +24,12 @@ import Inspector from './components/inspector';
  * @return {bool} Background support
  */
 function hasCustomBackgroundColor(blockType) {
-  return hasBlockSupport(blockType, 'customBackgroundColor', true);
+  let defaultSupport = true;
+  // @todo shared blocks are buggy.
+  if (['core/block'].includes(blockType)) {
+    defaultSupport = false;
+  }
+  return hasBlockSupport(blockType, 'customBackgroundColor', defaultSupport);
 }
 
 /**
@@ -49,7 +54,7 @@ function applyClasses(classes, attributes) {
  * @return {Object} Filtered block settings.
  */
 function addAttributes(settings) {
-  if (hasCustomBackgroundColor(settings)) {
+  if (hasCustomBackgroundColor(settings.name)) {
     settings.attributes = assign(settings.attributes, {
       customBackgroundColor: {
         type: 'string',
@@ -91,7 +96,7 @@ const withInspectorControl = createHigherOrderComponent(BlockEdit => {
  * @return {Object} Filtered props applied to save element.
  */
 function addSaveProps(extraProps, blockType, attributes) {
-  if (hasCustomBackgroundColor(blockType)) {
+  if (hasCustomBackgroundColor(blockType.name)) {
     extraProps.className = applyClasses(extraProps.className, attributes);
   }
   return extraProps;
@@ -107,7 +112,7 @@ const withBackground = createHigherOrderComponent(BlockListBlock => {
   return props => {
     let wrapperProps = props.wrapperProps || {};
 
-    if (hasCustomBackgroundColor(props.name)) {
+    if (hasCustomBackgroundColor(props.block.name)) {
       const attributes = props.block.attributes;
 
       wrapperProps = {
