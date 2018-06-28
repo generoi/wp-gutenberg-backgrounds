@@ -17,6 +17,7 @@ const Inspector = ({ attributes, setAttributes, customBackgroundColor, setCustom
   return (
     <InspectorAdvancedControls>
       <PanelColor
+        key='custombackgroundcolorcontrol'
         colorValue={ customBackgroundColor.value }
         title={ __('Background Color', 'wp-gutenberg-backgrounds') }
         onChange={ setCustomBackgroundColor }

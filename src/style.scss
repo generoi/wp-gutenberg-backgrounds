@@ -18,7 +18,8 @@
 }
 
 // Use the background color when dim is an option on the parent block.
-.has-background.has-background-dim {
+.has-background.has-background-dim,
+[data-background-color] .has-background-dim {
   &::before {
     background-color: inherit !important;
     opacity: 0.5;
