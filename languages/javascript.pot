@@ -3,10 +3,14 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "X-Generator: babel-plugin-makepot\n"
 
-#: src/components/inspector.js:22
-msgid "Background Color"
+#: src/components/inspector.js:20
+msgid "Color Settings"
 msgstr ""
 
-#: src/components/inspector.js:29
+#: src/components/inspector.js:25
+msgid "Background color"
+msgstr ""
+
+#: src/components/inspector.js:33
 msgid "Expand the full viewport width"
 msgstr ""

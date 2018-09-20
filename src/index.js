@@ -9,8 +9,9 @@ import classnames from 'classnames';
  */
 import { addFilter } from '@wordpress/hooks';
 import { hasBlockSupport } from '@wordpress/blocks';
-import { Fragment, createHigherOrderComponent } from '@wordpress/element';
-import { getColorClass } from '@wordpress/editor';
+import { Fragment } from '@wordpress/element';
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { getColorClassName } from '@wordpress/editor';
 
 /**
  * Internal Dependencies
@@ -37,7 +38,7 @@ function hasCustomBackgroundColor(blockType) {
  * @param {Object} attributes
  */
 function applyClasses(classes, attributes) {
-  const colorClass = getColorClass('background-color', attributes.customBackgroundColor);
+  const colorClass = getColorClassName('background-color', attributes.customBackgroundColor);
 
   if (colorClass) {
     return classnames(classes, 'has-background', colorClass, {

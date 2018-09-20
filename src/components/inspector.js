@@ -3,7 +3,7 @@
  */
 import { __ } from '@wordpress/i18n';
 import {
-  PanelColor,
+  PanelColorSettings,
   withColors,
   InspectorAdvancedControls,
 } from '@wordpress/editor';
@@ -16,14 +16,18 @@ const Inspector = ({ attributes, setAttributes, customBackgroundColor, setCustom
 
   return (
     <InspectorAdvancedControls>
-      <PanelColor
-        key='custombackgroundcolorcontrol'
-        colorValue={ customBackgroundColor.value }
-        title={ __('Background Color', 'wp-gutenberg-backgrounds') }
-        onChange={ setCustomBackgroundColor }
+      <PanelColorSettings
+        title={ __('Color Settings', 'wp-gutenberg-backgrounds') }
+        colorSettings={ [
+          {
+            value: customBackgroundColor.color,
+            onChange: setCustomBackgroundColor,
+            label: __('Background color', 'wp-gutenberg-backgrounds'),
+          },
+        ] }
       />
 
-      { !!customBackgroundColor.value && (
+      { !!customBackgroundColor.color && (
         <ToggleControl
           key='togglecontrol'
           label={ __('Expand the full viewport width', 'wp-gutenberg-backgrounds') }
