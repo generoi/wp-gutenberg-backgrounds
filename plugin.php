@@ -70,7 +70,7 @@ class Plugin
                 ];
                 if ($blockType->is_dynamic()) {
                     $blockType->original_render_callback = $blockType->render_callback;
-                    $blockType->render_callback = function ($attributes) use ($blockType) {
+                    $blockType->render_callback = function ($attributes, ...$args) use ($blockType) {
                         if (!empty($attributes['customBackgroundColor'])) {
                             $attributes['classes'][] = 'has-background';
                             $attributes['classes'][] = 'has-' . $attributes['customBackgroundColor'] . '-background-color';
@@ -78,7 +78,7 @@ class Plugin
                         if (!empty($attributes['hasCustomBackgroundExpand'])) {
                             $attributes['classes'][] = 'has-background-expanded';
                         }
-                        return (string) call_user_func($blockType->original_render_callback, $attributes);
+                        return (string) call_user_func($blockType->original_render_callback, $attributes, ...$args);
                     };
                 }
             }
