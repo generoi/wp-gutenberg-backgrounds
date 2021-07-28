@@ -11,7 +11,7 @@ import { addFilter } from '@wordpress/hooks';
 import { hasBlockSupport } from '@wordpress/blocks';
 import { Fragment } from '@wordpress/element';
 import { createHigherOrderComponent } from '@wordpress/compose';
-import { getColorClassName } from '@wordpress/editor';
+import { getColorClassName } from '@wordpress/block-editor';
 
 /**
  * Internal Dependencies

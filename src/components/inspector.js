@@ -6,7 +6,7 @@ import {
   PanelColorSettings,
   withColors,
   InspectorAdvancedControls,
-} from '@wordpress/editor';
+} from '@wordpress/block-editor';
 import {
   ToggleControl,
 } from '@wordpress/components';

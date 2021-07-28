@@ -21,6 +21,7 @@ mix.webpackConfig({
     '@wordpress/blocks': 'wp.blocks',
     '@wordpress/compose': 'wp.compose',
     '@wordpress/editor': 'wp.editor',
+    '@wordpress/block-editor': 'wp.blockEditor',
     '@wordpress/hooks': 'wp.hooks',
     '@wordpress/date': 'wp.date',
     '@wordpress/data': 'wp.data',
