@@ -87,7 +87,7 @@ class Plugin
 
     public function block_assets()
     {
-        $this->enqueueStyle("{$this->plugin_name}/block/css", 'dist/style.css', ['wp-edit-blocks']);
+        $this->enqueueStyle("{$this->plugin_name}/block/css", 'dist/style.css', []);
     }
 
     public function block_editor_assets()
