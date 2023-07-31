@@ -65,7 +65,7 @@ class Plugin
                     'type' => 'string',
                 ];
                 $blockType->attributes['hasCustomBackgroundExpand'] = [
-                    'type' => 'bool',
+                    'type' => 'boolean',
                     'default' => false,
                 ];
                 if ($blockType->is_dynamic()) {
